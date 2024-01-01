@@ -1,0 +1,50 @@
+﻿@using CrudDbAccess.Data;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BaseAccessData
+
+<h2>InfraAccess</h2>
+<div>
+    <form asp-action="GetAccess" asp-controller="Access" method="post">
+        <label asp-for="Id">Id</label>
+        <input asp-for="Id" />
+        <br />
+        <button type="submit">GetAccess</button>
+    </form>
+</div>
+
+<br />
+
+@if (Model != null)
+{
+    <table class="">
+        <thead>
+            <tr>
+                @* <th style="background-color:lightgray">id</th> *@
+                <th style="padding-left:30px; background-color:lightgray">FromAddress</th>
+                <th style="padding-left:30px; background-color:lightgray">FromZone</th>
+                <th style="padding-left:30px; background-color:lightgray">FromName</th>
+                <th style="padding-left:30px; background-color:lightgray">Port</th>
+                <th style="padding-left:30px; background-color:lightgray">ToAddress</th>
+                <th style="padding-left:30px; background-color:lightgray">ToZone</th>
+                <th style="padding-left:30px; background-color:lightgray">ToName</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr class="active-row">
+                    <th style="padding-left:30px">@Model.From.Address</th>
+                    <th style="padding-left:30px">@Model.From.Zone</th>
+                    <th style="padding-left:30px">@Model.From.Name</th>
+                    <th style="padding-left:30px">@Model.Port</th>
+                    <th style="padding-left:30px">@Model.To.Address</th>
+                    <th style="padding-left:30px">@Model.To.Zone</th>
+                    <th style="padding-left:30px">@Model.To.Name</th>
+                <th style="padding-left:30px"><button type="submit"><a asp-action="ToDelete" asp-controller="Access" asp-route-id="@Model.Id">Delete</a></button></th>
+                <th style="padding-left:30px"><button type="submit"><a asp-action="ToUpdate" asp-controller="Access" asp-route-id="@Model.Id">Update</a></button></th>
+                </tr>
+        </tbody>
+    </table>
+}

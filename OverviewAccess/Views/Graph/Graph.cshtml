@@ -1,0 +1,215 @@
+﻿@using CrudDbAccess.Data;
+@using CrudDbAccess.Enums;
+
+@model GraphViewModel
+<div class="row">
+    <div class="col-12">
+        <h4 class="fw-bold mt-3"><i class="bi bi-bezier"></i> Access Graph</h4>
+        <div class="card mt-2" style="max-width: auto;">
+            <form method="post" class="form mb-5">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="form-label">Zone</label>
+                            <select class="form-control" asp-for="SelectedZone" asp-items="Html.GetEnumSelectList<Zone>()" id="zone">
+                                <option>--Select Zone--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <input class="form-control" asp-for="Address" id="address" />
+                        </div>
+                    </div>
+                    <div class="col-4 align-self-end">
+                        <button class="btn btn-success" type="submit" asp-action="ExportExcel" asp-controller="Graph">
+                            <i class="bi bi-file-earmark-spreadsheet"></i>
+                            Export Excel
+                        </button>
+                        <button class="btn btn-success ml-3" type="submit" asp-action="GetGraphBySearch" asp-controller="Graph">
+                            <i class="bi bi-search"></i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="cy" class="mt-3"></div>
+
+
+<style>
+    #cy {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        display: block;
+    }
+</style>
+
+
+
+
+
+@section Scripts {
+    <script src="~/lib/cytoscape/dist/cytoscape.min.js" asp-append-version="true"></script>
+    <script>
+
+        var model = @Html.Raw(Json.Serialize(Model.Accesses));
+
+        function updateGraphHeight() {
+            const height = $(window).height() - 200;
+            $('#graph-container').height(height);
+        }
+
+        $(window).on('resize', updateGraphHeight);
+        updateGraphHeight();
+
+        generateGraph(model);
+
+        function generateGraph(data) {
+            console.log(data)
+
+
+            let nodes = [];
+
+            for (item of data) {
+                let fromNode = { data: { id: item.from.address, label: item.from.address } };
+                let toNode = { data: { id: item.to.address, label: item.to.address } };
+
+                nodes.push(fromNode);
+
+                nodes.push(toNode);
+            }
+
+            let edges = [];
+
+            for (item of data) {
+                let edge = { data: { source: item.from.address, target: item.to.address, label: item.port }, classes: 'autorotate' };
+                edges.push(edge);
+            }
+
+            var cy = window.cy = cytoscape({
+                container: document.getElementById('cy'),
+
+                layout: {
+                    name: 'concentric',
+                    concentric: function (n) { return n.id() === 'j' ? 200 : 0; },
+                    levelWidth: function (nodes) { return 100; },
+                    minNodeSpacing: 100
+                },
+
+                style: [
+                    {
+                        "selector": "node[label]",
+                        "style": {
+                            "label": "data(label)",
+                            "background-color": "orange",
+                            "text": "bold"
+                        }
+                    },
+
+                    {
+                        "selector": "edge[label]",
+                        "style": {
+                            "label": "data(label)",
+                            "width": 3,
+                            "hight": 3,
+                            "text": "bold"
+                        }
+                    },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'curve-style': 'bezier',
+                            'target-arrow-shape': 'triangle',
+                            'line-color': 'pink'
+                        }
+                    },
+
+                    // some style for the extension
+
+                    {
+                        selector: '.eh-handle',
+                        style: {
+                            'background-color': 'red',
+                            'width': 12,
+                            'height': 12,
+                            'shape': 'ellipse',
+                            'overlay-opacity': 0,
+                            'border-width': 12, // makes the handle easier to hit
+                            'border-opacity': 0
+                        }
+                    },
+
+                    {
+                        selector: '.eh-hover',
+                        style: {
+                            'background-color': 'red'
+                        }
+                    },
+
+                    {
+                        selector: '.eh-source',
+                        style: {
+                            'border-width': 2,
+                            'border-color': 'red'
+                        }
+                    },
+
+                    {
+                        selector: '.eh-target',
+                        style: {
+                            'border-width': 2,
+                            'border-color': 'red'
+                        }
+                    },
+
+                    {
+                        selector: '.eh-preview, .eh-ghost-edge',
+                        style: {
+                            'background-color': 'red',
+                            'line-color': 'red',
+                            'target-arrow-color': 'red',
+                            'source-arrow-color': 'red'
+                        }
+                    },
+
+                    {
+                        selector: '.eh-ghost-edge.eh-preview-active',
+                        style: {
+                            'opacity': 0
+                        }
+                    },
+                    {
+                        "selector": ".background",
+                        "style": {
+                            "text-background-opacity": 1,
+                            "color": "#fff",
+                            "text-background-color": "#888",
+                            "text-background-shape": "roundrectangle",
+                            "text-border-color": "#000",
+                            "text-border-width": 1,
+                            "text-border-opacity": 1,
+                            "font-size": "6px"
+                        }
+                    },
+                ],
+
+                elements: {
+                    nodes: nodes,
+                    edges: edges
+                }
+            });
+
+                            /* var eh = */ cy.edgehandles();
+        }
+    </script>
+
+}
+
+
+

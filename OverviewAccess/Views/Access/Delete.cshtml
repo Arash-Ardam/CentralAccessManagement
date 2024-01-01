@@ -1,0 +1,42 @@
+﻿@using CrudDbAccess.Data;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BaseAccessData
+<h5>Are you sure to delete Db with Specifications below ??</h5>
+<br />
+
+<div>
+    <form method="post">
+        <div calss="col-12 mt-5">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>FromAddress</th>
+                        <th>FromZone</th>
+                        <th>Port</th>
+                        <th>ToAddress</th>
+                        <th>ToZone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th><label asp-for="From.Address">@Model.From.Address</label></th>
+                        <th><label asp-for="From.Zone" />@Model.From.Zone</th>
+                        <th><label asp-for="Port" />@Model.Port</th>
+                        <th><label asp-for="To.Address">@Model.To.Address</label></th>
+                        <th><label asp-for="To.Zone" />@Model.To.Zone</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br />
+            <div>
+                <button class="btn btn-sm btn-danger" type="submit" asp-action="Delete" asp-controller="Access" asp-route-id="@Model.Id"><i class="bi bi-check"></i>Yes !!!</button>
+                <button class="btn btn-sm btn-info" type="submit" asp-action="Index" asp-controller="Home">No !!!</button>
+            </div>
+        </div>
+    </form>
+</div>

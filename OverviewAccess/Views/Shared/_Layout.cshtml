@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CentralAccessManagement</title>
+    <link rel="icon" href="~/images/saas.png"/>
+    <link href="~/lib/bootstrap-icons-1.11.2/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/OverviewAccess.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container-fluid">
+    <header>
+
+            <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;" data-bs-theme="light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-controller="Home" asp-action="index"><img src="~/images/Logo-Small.png" width="90px" height="auto" /></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"><i class="bi bi-justify"></i></span>
+                    </button>
+                   
+                    <div class="collapse navbar-collapse" id="navbarColor03">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="index"><i class="bi bi-house-fill"></i> Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Graph" asp-action="GraphAccess"><i class="bi bi-bezier"></i> OverViewGraph</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="List" asp-controller="Access"><i class="bi bi-node-plus-fill"></i> Access List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="List" asp-controller="Db"><i class="bi bi-server"></i> Server List</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial.cshtml" />
+                    </div>
+                </div>
+               
+            </nav>
+
+    </header>
+    @* </div>
+    <div class="w3-container"> *@
+        <main role="main" class="pb-3">
+            <div class="container-fluid">
+                @RenderBody()
+
+            </div>
+        </main>
+    </div>
+        
+    
+
+   @*  <footer class="border-top footer text-muted">
+        <div class="container">
+            Contact Us
+        </div>
+    </footer> *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    
+</body>
+</html>

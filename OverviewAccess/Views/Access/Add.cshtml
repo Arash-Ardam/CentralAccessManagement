@@ -1,0 +1,50 @@
+﻿@using CrudDbAccess.Dtos;
+@using CrudDbAccess.Enums;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CreateAccessDto
+<h1>Add New Access</h1>
+<div class="row">
+    <div class="col-12">
+        <form class="form mb-5" asp-action="Add" asp-controller="Access" method="post">
+
+            <div class="row">
+                <div class=" col-4">
+                    <div class="form-group">
+                        <label class="form-label" asp-for="From.Address">FromAddress</label>
+                        <input class="form-control" asp-for="From.Address" />
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="form-label" asp-for="Port">Port</label>
+                        <input class="form-control" asp-for="Port" />
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="form-label" asp-for="To.Address">ToAddress</label>
+                        <input class="form-control" asp-for="To.Address" />
+                    </div>
+                </div>
+
+                <div class="col-4 align-self-end">
+                    <button class="btn btn-success" type="submit">Submit</button>
+                </div>
+                
+            </div>
+            <br />
+
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <p>For visiting latest changes click <a asp-controller="Access" asp-action="List">here</a></p>
+</div>

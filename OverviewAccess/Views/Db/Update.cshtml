@@ -1,0 +1,56 @@
+﻿@using CrudDbAccess.Dtos;
+@using CrudDbAccess.Enums;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model UpdateDbDto
+<div class="row">
+    <h4 class="fw-bold">Update Db</h4>
+
+    <div class="col-12">
+        <form class="form mb-5" asp-action="Update" asp-controller="Db" method="post">
+
+            <div>
+                <input class="form-label" asp-for="Id" type="hidden" value="@Model.Id" />
+            </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    <div>
+                        <label class="form-label" asp-for="Address">Address</label>
+                        <input class="form-control" asp-for="Address" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-4">
+                <div class="form-group">
+                    <div>
+                        <label class="form-label" asp-for="Zone">Zone</label>
+                        <select class="form-control" asp-for="Zone" asp-items="Html.GetEnumSelectList<Zone>()">
+                            @* <option>@Model.DbType</option> *@
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    <div>
+                        <label class="form-label" asp-for="Name">Name</label>
+                        <input class="form-control" asp-for="Name" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4 align-self-end">
+                <button class="btn btn-success" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <p>For visiting latest changes click <a asp-controller="Db" asp-action="List">here</a></p>
+</div>

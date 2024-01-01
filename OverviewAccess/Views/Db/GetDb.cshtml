@@ -1,0 +1,48 @@
+﻿@using CrudDbAccess.Data;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model DatabaseDetails
+
+<h2>InfraDb</h2>
+<div>
+    <form asp-action="GetDb" asp-controller="Db" method="post">
+        <label asp-for="Address">Address</label>
+        <input asp-for="Address" />
+        <br />
+        <button type="submit">Getdb</button>
+    </form>
+</div>
+
+<br />
+
+@if (Model != null)
+{
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="padding-left:30px; background-color:lightgray">Id</th>
+                    <th style="padding-left:30px; background-color:lightgray">Address</th>
+                    <th style="padding-left:30px; background-color:lightgray">Zone</th>
+                    <th style="padding-left:30px; background-color:lightgray">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th style="padding-left:30px">@Model.Id</th>
+                    <th style="padding-left:30px">@Model.Address</th>
+                    <th style="padding-left:30px">@Model.Zone</th>
+                    <th style="padding-left:30px">@Model.Name</th>
+                    <th style="padding-left:30px"><button type="submit"><a asp-action="ToDelete" asp-controller="Db" asp-route-id="@Model.Id">Delete</a></button></th>
+                    <th style="padding-left:30px"><button type="submit"><a asp-action="ToUpdate" asp-controller="Db" asp-route-id="@Model.Id">Update</a></button></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}
+
+
+

@@ -1,0 +1,17 @@
+﻿@using CrudDbAccess.Dtos;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ResponseMessage
+
+<h1>ActionStatus</h1>
+<div>
+    <h4><label asp-for="isSuccess">isSuccess</label></h4>
+    <p>@Model.isSuccess</p>
+</div>
+<div>
+    <h4><label asp-for="Message">Message</label></h4>
+    <p>@Model.Message</p>
+</div>
